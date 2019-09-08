@@ -26,10 +26,14 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    if "_" in display:
-        return False
-    else:
-        return True
+   # if "_" in display:
+   #     return True
+   # else:
+    #    return False
+    for i in secret_word:
+        if i not in letters_guessed:
+            return True
+    return False
 
 
 def user_input(prompt):
@@ -49,30 +53,19 @@ def get_guessed_word(secret_word, letters_guessed):
     #     else:
     #         display += "_ "
     # return display
-    counter = 0
-    display = ['_ ']*len(secret_word)
-    for letter, guess in enumerate(secret_word):
-        if guess in letters_guessed:
-            counter += 1
-            display.insert(letter-1, guess)
-            display.pop(counter)
-            if counter == len(secret_word):
-                return ''.join(str(guess) for guess in display)
+    display=""
+    for i in secret_word:
+        if i in letters_guessed:
+            display +=i
         else:
-            counter += 1
-            display.insert(counter-1, '_ ')
-            display.pop(counter)
-            if counter == len(secret_word):
-                return ''.join(str(guess) for guess in display)
+            display+="_"
+
 
     return display
 
 def is_guess_in_word(guess, secret_word):
     # TODO: check if the letter guess is in the secret word
-    if guess in secret_word:
-        return True
-    else:
-        return False
+    return guess in secret_word
 
 
 def spaceman(secret_word):
@@ -82,7 +75,7 @@ def spaceman(secret_word):
     print(
         f"Welcome to Space Man user! In this guessing game you have {incorrect_guesses} chances to guess the secret word!")
 
-    while incorrect_guesses > 0 and incorrect_guesses <= len(secret_word) and Game is True:
+    while incorrect_guesses > 0 and incorrect_guesses <= len(secret_word) and is_word_guessed(secret_word, letters_guessed) and Game == True:
         print(get_guessed_word(secret_word, letters_guessed))
 
         if secret_word == get_guessed_word(secret_word, letters_guessed):
@@ -109,22 +102,70 @@ def spaceman(secret_word):
                 print ('Oops! That letter is not in the word: ' + get_guessed_word(secret_word, letters_guessed))
                 print ('------------')
 
-    if Game == True:
-        return 'Congratulations, you won!'
-    elif incorrect_guesses== 0:
-        print ('Sorry, you ran out of guesses. The word was ' + secret_word)
-
+    if not is_word_guessed(secret_word, letters_guessed):
+        print('Congratulations, you won!')
+    else: #incorrect_guesses == 0:
+        print('Sorry, you ran out of guesses. The word was ' + secret_word)
 
         # if is_word_guessed(secret_word, letters_guessed):
         #     print("Congratz you won space man!")
         # else:
         #     print("Better luck next time! :(")
 
-    # TODO: show the player information about the game according to the project spec
-    # TODO: Ask the player to guess one letter per round and check that it is only one letter
-    # TODO: Check if the guessed letter is in the secret or not and give the player feedback
-    # TODO: show the guessed word so far
-    # TODO: check if the game has been won or lost
+    
 # These function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
+
+print("""   
+      .-     -.      _
+     /    .----\\   _/ \\
+   .-|   /:.   |  |   |
+   |  \\  |:.   /.-'-./
+   | .- -;:__.     =/
+   .-=  *=|     _.=-
+  /   _.  |    ;
+ ;-.--|    \\   |
+/   | \\    _\\  _\\
+\\__/-._;.  ==- ==\\
+         \\    \\   |
+         /    /   /
+         /-._/-._/
+         \\    \\  \\
+          `-._/._/  """)
+
+print("""  .   ,- To the Moon Space Man!
+                   .'.
+                   |o|
+                  .'o'.
+                  |.-.|
+                  '   '
+                   ( )
+                    )
+                   ( )
+
+               ____
+          .-'""p 8o""`-.
+       .-'8888P'Y.`Y[ ' `-.
+     ,']88888b.J8oo_      '`.
+   ,' ,88888888888["        Y`.
+  /   8888888888P            Y8\\
+ /    Y8888888P'             ]88\\
+:     `Y88'   P              `888:
+:       Y8.oP '- >            Y88:
+|          `Yb  __             `'|
+:            `'d8888bo.          :
+:             d88888888ooo.      ;
+ \\            Y88888888888P     /
+  \\            `Y88888888P     /
+   `.            d88888P'    ,'
+     `.          888PP'    ,'
+       `-.      d8P'    ,-'   
+          `-.,,_'__,,.-'
+ """)
+#Users can only guess individual letters at a time. If they guess anything other than an individual letter, they should be prompted and told to input only one letter
+#Prompt the user to play again after a game ends. If they say yes, then start a new game.
+#Use ASCII art to draw the spaceman with each incorrect guess
+#Sinister Spaceman: After the user guesses a correct letter, change the mystery word to be a new mystery word that is the same word length and uses the same correctly guessed letters
+#Example: mystery word is “car”, user guesses “a”, the user is shown “_a_”, but the word is now changed to “bar”
+#User guesses “c”, which results in an incorrect guess.
