@@ -1,0 +1,1 @@
+This program is a text based game called spaceman that allows you a certain amount of guesses to guess a secret word, this secret word is chosen among thousands of words, the number of guesses you have depends on the length of the word. You have just as many guesses as the length of the word.
