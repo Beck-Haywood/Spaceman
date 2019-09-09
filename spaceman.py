@@ -1,10 +1,7 @@
 import random
 
-# guess = ""
 letters_guessed = []
-display = ''
-# Game = "onGoing"
-
+#display = ''   DOESNT NEED TO BE GLOBAL VARIABLE?
 
 def load_word():
     f = open('words.txt', 'r')
@@ -15,26 +12,11 @@ def load_word():
     secret_word = random.choice(words_list)
     return secret_word
 
-
 def is_word_guessed(secret_word, letters_guessed):
-    '''
-    A function that checks if all the letters of the secret word have been guessed.
-    Args:
-        secret_word (string): the random word the user is trying to guess.
-        letters_guessed (list of strings): list of letters that have been guessed so far.
-    Returns: 
-        bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
-    '''
-    # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-   # if "_" in display:
-   #     return True
-   # else:
-    #    return False
     for i in secret_word:
         if i not in letters_guessed:
             return True
     return False
-
 
 def user_input(prompt):
     # the input function will display a message in the terminal
@@ -42,31 +24,18 @@ def user_input(prompt):
     user_input = input(prompt)
     return user_input
 
-
 def get_guessed_word(secret_word, letters_guessed):
-    # TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-    # display = ''
-
-    # for character in secret_word:
-    #     if character in letters_guessed:
-    #         display += character
-    #     else:
-    #         display += "_ "
-    # return display
-    display=""
+    display = ""
     for i in secret_word:
         if i in letters_guessed:
             display +=i
         else:
             display+="_"
 
-
     return display
 
 def is_guess_in_word(guess, secret_word):
-    # TODO: check if the letter guess is in the secret word
     return guess in secret_word
-
 
 def spaceman(secret_word):
     incorrect_guesses = len(secret_word)
@@ -83,35 +52,39 @@ def spaceman(secret_word):
             break
 
         guess = user_input("Guess a letter! ").lower()
+        print ('---------------------------------')
 
         if guess in secret_word:
-                if guess in letters_guessed:
+            #This is so you can only guess one character!
+                if len(guess) > 1:
+                    print ("You may only guess 1 character!")
+                    print ('---------------------------------')
+                elif guess in letters_guessed:
                     print ("Oops! You've already guessed that letter: " + get_guessed_word(secret_word, letters_guessed))
-                    print ('------------')
+                    print ('---------------------------------')
                 else:
                     letters_guessed.append(guess)
                     print ('Good guess: ' + get_guessed_word(secret_word, letters_guessed))
-                    print ('------------')
+                    print ('---------------------------------')
         else:
-            if guess in letters_guessed:
+            if len(guess) > 1:
+                    print ("You may only guess 1 character!")
+                    print ('---------------------------------')
+            elif guess in letters_guessed:
                 print ("Oops! You've already guessed that letter: " + get_guessed_word(secret_word, letters_guessed))
-                print ('------------')
+                print ('---------------------------------')
             else:
                 letters_guessed.append(guess)
                 incorrect_guesses-= 1
                 print ('Oops! That letter is not in the word: ' + get_guessed_word(secret_word, letters_guessed))
-                print ('------------')
+                #This line tells you how many guesses you have left after each incorrect guess.
+                print("You have " + (str(incorrect_guesses)) + " guesses left!")
+                print ('---------------------------------')
 
     if not is_word_guessed(secret_word, letters_guessed):
         print('Congratulations, you won!')
     else: #incorrect_guesses == 0:
         print('Sorry, you ran out of guesses. The word was ' + secret_word)
-
-        # if is_word_guessed(secret_word, letters_guessed):
-        #     print("Congratz you won space man!")
-        # else:
-        #     print("Better luck next time! :(")
-
     
 # These function calls that will start the game
 secret_word = load_word()
@@ -163,9 +136,11 @@ print("""  .   ,- To the Moon Space Man!
        `-.      d8P'    ,-'   
           `-.,,_'__,,.-'
  """)
+#All art came from this website I did not create this. https://www.asciiart.eu/space/spaceships
+
+
+
+
 #Users can only guess individual letters at a time. If they guess anything other than an individual letter, they should be prompted and told to input only one letter
 #Prompt the user to play again after a game ends. If they say yes, then start a new game.
-#Use ASCII art to draw the spaceman with each incorrect guess
-#Sinister Spaceman: After the user guesses a correct letter, change the mystery word to be a new mystery word that is the same word length and uses the same correctly guessed letters
-#Example: mystery word is “car”, user guesses “a”, the user is shown “_a_”, but the word is now changed to “bar”
 #User guesses “c”, which results in an incorrect guess.
