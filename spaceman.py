@@ -64,8 +64,8 @@ def spaceman(secret_word):
         
         if guess in secret_word:
             #This is so you can only guess one character!
-                if len(guess) > 1:
-                    print ("You may only guess 1 character!")
+                if not len(guess) == 1:
+                    print ("Your guess can only be 1 character!")
                     print ('---------------------------------')
                 elif guess in letters_guessed:
                     print ("That letter has already been guessed! " + get_guessed_word(secret_word, letters_guessed))
@@ -75,8 +75,8 @@ def spaceman(secret_word):
                     print ('Good guess: ' + get_guessed_word(secret_word, letters_guessed))
                     print ('---------------------------------')
         else:
-            if len(guess) > 1:
-                    print ("You may only guess 1 character!")
+            if not len(guess) == 1:
+                    print ("Your guess can only be 1 character!")
                     print ('---------------------------------')
             elif guess in letters_guessed:
                 print ("That letter has already been guessed! " + get_guessed_word(secret_word, letters_guessed))
