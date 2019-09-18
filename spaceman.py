@@ -108,13 +108,13 @@ def test_load_word():
 def test_is_guess_in_word():
     assert is_guess_in_word(('hi'),["h"]) is True
     assert is_guess_in_word(('hi'),["w"]) is False
-# These function calls that will start the game
-secret_word = load_word()
-spaceman(secret_word)
 # Tests
 test_word_guessed()
 test_load_word()
 test_is_guess_in_word()
+# These function calls that will start the game
+secret_word = load_word()
+spaceman(secret_word)
 #Some ASCII art I got online link of creators below V
 print("""   
       .-     -.      _
