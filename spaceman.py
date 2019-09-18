@@ -101,10 +101,10 @@ def spaceman(secret_word):
         play_again(decision)
 #Test functions to test other functions :)
 def test_word_guessed():
-    assert is_word_guessed(('bruh'),["b","r","h"]) is False
-    assert is_word_guessed(('bruh'),["b","r","u","h"]) is True
+    assert is_word_guessed(('bruh'),["b","r","h"]) == False
+    assert is_word_guessed(('bruh'),["b","r","u","h"]) == True
 def test_load_word():
-    assert (len(secret_word) > 0 and len(secret_word) < 20) is True
+    assert (len(secret_word) > 0 and len(secret_word) < 20) == True
 def test_is_guess_in_word():
     assert is_guess_in_word(('hi'),["h"]) is True
     assert is_guess_in_word(('hi'),["w"]) is False
