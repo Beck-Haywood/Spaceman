@@ -1,4 +1,5 @@
 import random
+import unittest
 
 letters_guessed = []
 #display = ''   DOESNT NEED TO BE GLOBAL VARIABLE?
@@ -98,10 +99,22 @@ def spaceman(secret_word):
         print('Sorry, you ran out of guesses. The word was ' + secret_word)
         decision = user_input("Would you like to play again? (Yes or No) ").upper()
         play_again(decision)
-    
+#Test functions to test other functions :)
+def test_word_guessed():
+    assert is_word_guessed(('bruh'),["b","r","h"]) is False
+    assert is_word_guessed(('bruh'),["b","r","u","h"]) is True
+def test_load_word():
+    assert (len(secret_word) > 0 and len(secret_word) < 20) is True
+def test_is_guess_in_word():
+    assert is_guess_in_word(('hi'),["h"]) is True
+    assert is_guess_in_word(('hi'),["w"]) is False
 # These function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
+# Tests
+test_word_guessed()
+test_load_word()
+test_is_guess_in_word()
 #Some ASCII art I got online link of creators below V
 print("""   
       .-     -.      _
